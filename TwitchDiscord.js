@@ -39,7 +39,9 @@ async function TwitchStatus(streamID){
                 channel.send(`${streamID} is online.`);
                 console.log(`${getCurrentTime()} ${streamID} is online.`);
                 y = 1;
-            } 
+            }else{
+                console.log("Check failed.");
+            }
         }
         else if (y !== 0 && status === 0){
             if (UsherService.isChannelLive(streamID) == 0 && UsherService.isChannelLive(streamID) == 0){
@@ -47,6 +49,8 @@ async function TwitchStatus(streamID){
                 channel.send(`${streamID} is offline.`);
                 console.log(`${getCurrentTime()} ${streamID} is offline.`);
                 y = 0;  
+            }else{
+                console.log("Check failed.");
             }            
         }
         else if (y !== 2 && status === 2){
@@ -55,6 +59,8 @@ async function TwitchStatus(streamID){
                 channel.send(`${streamID} does not exist.`);
                 console.log(`${getCurrentTime()} ${streamID} does not exist.`);
                 y = 2;
+            }else{
+                console.log("Check failed.");
             }
         }
         await new Promise(resolve => setTimeout(resolve, 3000));
