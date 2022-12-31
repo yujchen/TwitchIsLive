@@ -25,6 +25,7 @@ dsclient.login(process.env.TOKEN);
 
 async function TwitchStatus(streamID){
     let y = -1;
+    let count = 0;
     if (streamID === null || streamID === undefined){
         console.log("Error: no stream name input");
         process.exit(1);
@@ -33,22 +34,28 @@ async function TwitchStatus(streamID){
         let status = UsherService.isChannelLive(streamID);
         console.log(`${getCurrentTime()} y is ${y}, Usher is ${UsherService.isChannelLive(streamID)}`);
         if (y !== 1 && status === 1){
-            const channel = dsclient.channels.cache.get(dsChannelID);
-            channel.send(`${streamID} is online.`);
-            console.log(`${getCurrentTime()} ${streamID} is online.`);
-            y = 1;
+            if (UsherService.isChannelLive(streamID) == 1 && UsherService.isChannelLive(streamID) == 1){
+                const channel = dsclient.channels.cache.get(dsChannelID);
+                channel.send(`${streamID} is online.`);
+                console.log(`${getCurrentTime()} ${streamID} is online.`);
+                y = 1;
+            } 
         }
         else if (y !== 0 && status === 0){
-            const channel = dsclient.channels.cache.get(dsChannelID);
-            channel.send(`${streamID} is offline.`);
-            console.log(`${getCurrentTime()} ${streamID} is offline.`);
-            y = 0;  
+            if (UsherService.isChannelLive(streamID) == 0 && UsherService.isChannelLive(streamID) == 0){
+                const channel = dsclient.channels.cache.get(dsChannelID);
+                channel.send(`${streamID} is offline.`);
+                console.log(`${getCurrentTime()} ${streamID} is offline.`);
+                y = 0;  
+            }            
         }
         else if (y !== 2 && status === 2){
-            const channel = dsclient.channels.cache.get(dsChannelID);
-            channel.send(`${streamID} does not exist.`);
-            console.log(`${getCurrentTime()} ${streamID} does not exist.`);
-            y = 2;
+            if (UsherService.isChannelLive(streamID) == 2 && UsherService.isChannelLive(streamID) == 2){
+                const channel = dsclient.channels.cache.get(dsChannelID);
+                channel.send(`${streamID} does not exist.`);
+                console.log(`${getCurrentTime()} ${streamID} does not exist.`);
+                y = 2;
+            }
         }
         await new Promise(resolve => setTimeout(resolve, 3000));
     }
