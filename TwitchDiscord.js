@@ -32,7 +32,7 @@ async function TwitchStatus(streamID){
     }
     while(true){
         let status = UsherService.isChannelLive(streamID);
-        console.log(`${getCurrentTime()} y is ${y}, Usher is ${UsherService.isChannelLive(streamID)}`);
+        console.log(`${getCurrentTime()} y is ${y}, Usher is ${status}`);
         if (y !== 1 && status === 1){
             if (UsherService.isChannelLive(streamID) == 1 && UsherService.isChannelLive(streamID) == 1){
                 const channel = dsclient.channels.cache.get(dsChannelID);
@@ -40,7 +40,7 @@ async function TwitchStatus(streamID){
                 console.log(`${getCurrentTime()} ${streamID} is online.`);
                 y = 1;
             }else{
-                console.log("Check failed.");
+                console.log(`Check failed. y is ${y} status ${status}`);
             }
         }
         else if (y !== 0 && status === 0){
@@ -50,7 +50,7 @@ async function TwitchStatus(streamID){
                 console.log(`${getCurrentTime()} ${streamID} is offline.`);
                 y = 0;  
             }else{
-                console.log("Check failed.");
+                console.log(`Check failed. y is ${y} status ${status}`);
             }            
         }
         else if (y !== 2 && status === 2){
@@ -60,7 +60,7 @@ async function TwitchStatus(streamID){
                 console.log(`${getCurrentTime()} ${streamID} does not exist.`);
                 y = 2;
             }else{
-                console.log("Check failed.");
+                console.log(`Check failed. y is ${y} status ${status}`);
             }
         }
         await new Promise(resolve => setTimeout(resolve, 3000));
